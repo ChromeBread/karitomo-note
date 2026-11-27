@@ -4,8 +4,6 @@
 
 A pocket hunting notebook made for a group of four friends who hunt together. It runs in the browser on iPhone, Android and PC. Add it to your home screen and it keeps working where there is no signal.
 
-> The app's screens are in Japanese for now.
-
 ## What it does
 
 - **Progress check** – tick the quests you have cleared (a whole star rank at once if you like). Everything else follows your progress: the simulator and the search only use gear you can actually make.
