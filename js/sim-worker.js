@@ -1,5 +1,5 @@
 // Runs the skill search off the UI thread and streams results back.
-import { search, totals, vcharms } from "./sim.js?v=1.0.0";
+import { search, totals, vcharms } from "./sim.js?v=1.0.1";
 
 self.onmessage = (e) => {
   const p = e.data;

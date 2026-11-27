@@ -1,22 +1,22 @@
 // ドパ☆ガキ狩友ノート — main UI. Plain ES modules, no build step.
-import { norm, reading, match as matchJa } from "./kana.js?v=1.0.0";
-import { LANG, setLang, isEn, t, tf, nm, translateDom, watchDom } from "./i18n.js?v=1.0.0";
-import { buildSources, obtainable, canMake, canMakeDeco, rankOf, dropUnreachableHikyo, dropQuests } from "./unlock.js?v=1.0.0";
-import { activated, totals, TORSO_UP } from "./sim.js?v=1.0.0";
-import { parseCharms, charmsToCsv, newCharms } from "./charms.js?v=1.0.0";
-import { reachableLevels } from "./rank.js?v=1.0.0";
-import { KINDS, encodeShare, decodeShare } from "./share.js?v=1.0.0";
-import { TOPICS, renderSpec } from "./spec.js?v=1.0.0";
-import { TOPICS_EN } from "./spec-en.js?v=1.0.0";
-import { renderCalc } from "./calc.js?v=1.0.0";
-import { renderDmgCalc } from "./dmgcalc.js?v=1.0.0";
-import { recommendQuests, bundleQuests, charmPotential, weaponTree, ammoIndex, upgradePath, deliveryPlan } from "./plan.js?v=1.0.0";
-import * as dbg from "./debug.js?v=1.0.0";
-import { adviseQuest, recommendPouch } from "./advice.js?v=1.0.0";
+import { norm, reading, match as matchJa } from "./kana.js?v=1.0.1";
+import { LANG, setLang, isEn, t, tf, nm, translateDom, watchDom } from "./i18n.js?v=1.0.1";
+import { buildSources, obtainable, canMake, canMakeDeco, rankOf, dropUnreachableHikyo, dropQuests } from "./unlock.js?v=1.0.1";
+import { activated, totals, TORSO_UP } from "./sim.js?v=1.0.1";
+import { parseCharms, charmsToCsv, newCharms } from "./charms.js?v=1.0.1";
+import { reachableLevels } from "./rank.js?v=1.0.1";
+import { KINDS, encodeShare, decodeShare } from "./share.js?v=1.0.1";
+import { TOPICS, renderSpec } from "./spec.js?v=1.0.1";
+import { TOPICS_EN } from "./spec-en.js?v=1.0.1";
+import { renderCalc } from "./calc.js?v=1.0.1";
+import { renderDmgCalc } from "./dmgcalc.js?v=1.0.1";
+import { recommendQuests, bundleQuests, charmPotential, weaponTree, ammoIndex, upgradePath, deliveryPlan } from "./plan.js?v=1.0.1";
+import * as dbg from "./debug.js?v=1.0.1";
+import { adviseQuest, recommendPouch } from "./advice.js?v=1.0.1";
 
 const APP_NAME_JA = "ドパ☆ガキ狩友ノート";
 let APP_NAME = APP_NAME_JA; // English name once the GU mode is loaded
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 const BUILD_DATE = "2026年11月28日";
 // the build date written the English way ("November 26, 2026")
 const buildDateEn = () => { const [y, m, d] = BUILD_DATE.match(/\d+/g).map(Number); return new Date(y, m - 1, d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); };
@@ -1026,7 +1026,7 @@ function swapsHtml(p, i) {
 }
 function runSim($) {
   worker?.terminate();
-  worker = new Worker("js/sim-worker.js?v=1.0.0", { type: "module" });
+  worker = new Worker("js/sim-worker.js?v=1.0.1", { type: "module" });
   const out = $("#results");
   out.innerHTML = "";
   $("#extra").innerHTML = "";
@@ -1064,7 +1064,7 @@ function runSim($) {
 // 仮想護石: charms (1-2 target skills, 0-3 slots) that would give results; not a promise the game makes them.
 function vcharmSearch($) {
   worker?.terminate();
-  worker = new Worker("js/sim-worker.js?v=1.0.0", { type: "module" });
+  worker = new Worker("js/sim-worker.js?v=1.0.1", { type: "module" });
   const box = $("#vcout");
   $("#vc").disabled = true;
   box.innerHTML = `<p class="muted">調べています…（最長30秒）</p>`;
@@ -1098,7 +1098,7 @@ function extraSearch($) {
     if (next) candidates.push([t.name, next]);
   }
   worker?.terminate();
-  worker = new Worker("js/sim-worker.js?v=1.0.0", { type: "module" });
+  worker = new Worker("js/sim-worker.js?v=1.0.1", { type: "module" });
   const box = $("#xsout");
   const hits = [];
   $("#xs").disabled = true;
@@ -3408,8 +3408,7 @@ routes.settings = () => {
       <div class="row"><button class="danger" id="clrall">全部削除</button></div>
     </div>
     <h2>🌐 Language</h2>
-    <div class="card"><div class="chips">${[["gu", "GU（English）"], ["xx", "XX（日本語）"]].map(([v, l]) => `<button class="chip ${(state.prefs.lang || "xx") === v ? "on" : ""}" data-lang="${v}" ${v === "xx" ? 'lang="ja"' : ""}>${l}</button>`).join("")}</div>
-      <p class="muted">${isEn() ? "Names follow the Switch version. Screens that are not translated yet stay in Japanese." : "XX は日本語（3DS版の名前）、GU は英語（Switch版の名前）です。切り替えると読み込み直します。"}</p></div>
+    <div class="card"><div class="chips">${[["gu", "GU（English）"], ["xx", "XX（日本語）"]].map(([v, l]) => `<button class="chip ${(state.prefs.lang || "xx") === v ? "on" : ""}" data-lang="${v}" ${v === "xx" ? 'lang="ja"' : ""}>${l}</button>`).join("")}</div></div>
     <h2>ℹ️ 情報</h2>
     <div class="card">
       <div>${APP_NAME} バージョン ${VERSION}</div>
@@ -3518,7 +3517,7 @@ loadData().then(async () => {
   try { D.nyanter = await fetch("data/nyanter.json").then((r) => (r.ok ? r.json() : null)); } catch { /* optional */ }
   try { D.shop = await fetch("data/shop.json").then((r) => (r.ok ? r.json() : null)); refreshHave(); } catch { /* optional */ }
   try { D.arts = await fetch("data/huntarts.json").then((r) => (r.ok ? r.json() : null)); } catch { /* optional */ }
-  try { const mod = await import("./rank.js?v=1.0.0"); weaponRanking = () => mod.render({ view, D, have, state, save, esc, fmt, rareTag }); } catch { /* not built yet */ }
+  try { const mod = await import("./rank.js?v=1.0.1"); weaponRanking = () => mod.render({ view, D, have, state, save, esc, fmt, rareTag }); } catch { /* not built yet */ }
   render();
   if (OBS) mirrorIn(); // open on the page the dock shows
 }).catch((e) => { view.innerHTML = `<p>データを読み込めませんでした。通信状態を確かめて、ページを再読み込みしてください。</p><p class="muted">${esc(e)}</p>`; });

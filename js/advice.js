@@ -1,8 +1,8 @@
 // Quest preparation advice from one player's data (own or a friend's): which owned weapon / equipment
 // myset / item myset to take for a quest with a chosen weapon type, what to make next, and which event
 // quests (downloaded or not) fight the same monsters. No DOM, so tests can run it in node.
-import { score } from "./rank.js?v=1.0.0";
-import { canMake } from "./unlock.js?v=1.0.0";
+import { score } from "./rank.js?v=1.0.1";
+import { canMake } from "./unlock.js?v=1.0.1";
 
 const GUNS = new Set(["ライトボウガン", "ヘビィボウガン", "弓"]);
 // Armor to make next: per part, makeable pieces (by this player's materials) not made yet that have more

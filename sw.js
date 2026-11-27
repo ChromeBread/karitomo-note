@@ -1,5 +1,5 @@
 // Offline cache. Bump VERSION on every release so old files are replaced.
-const VERSION = "karitomo-1.0.0";
+const VERSION = "karitomo-1.0.1";
 const FILES = [
   "./", "index.html", "css/app.css", "manifest.json", "icon.svg",
   "js/app.js", "js/sim.js", "js/sim-worker.js", "js/unlock.js", "js/kana.js", "js/rank.js", "js/charms.js", "js/share.js", "js/spec.js", "js/spec-en.js", "js/calc.js", "js/dmgcalc.js", "js/i18n.js", "js/plan.js", "js/debug.js", "js/advice.js", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",

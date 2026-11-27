@@ -1,5 +1,5 @@
 // Planning helpers (no DOM): where to farm a material, and how far a charm can push a skill.
-import { rankOf } from "./unlock.js?v=1.0.0";
+import { rankOf } from "./unlock.js?v=1.0.1";
 
 // shortcut: per-clear counts are rough (3 carves, 2 capture rolls, 1 roll for breaks/other
 // tables; every reward group counted). Good enough to rank quests, not an exact expectation.

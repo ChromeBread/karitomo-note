@@ -2,8 +2,8 @@
 // Community values: class multipliers to remove displayed-attack bloat,
 // sharpness multipliers, affinity as +-25% on crits. Motion values are a typical
 // average per weapon type so raw and element can be compared on one scale.
-import { canMake } from "./unlock.js?v=1.0.0";
-import { match } from "./kana.js?v=1.0.0";
+import { canMake } from "./unlock.js?v=1.0.1";
+import { match } from "./kana.js?v=1.0.1";
 
 const CLASS = { 大剣: 4.8, 太刀: 3.3, 片手剣: 1.4, 双剣: 1.4, ハンマー: 5.2, 狩猟笛: 4.2, ランス: 2.3, ガンランス: 2.3,
   スラッシュアックス: 3.5, チャージアックス: 3.6, 操虫棍: 3.1, ライトボウガン: 1.3, ヘビィボウガン: 1.5, 弓: 1.2 };
