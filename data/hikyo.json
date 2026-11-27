@@ -1,0 +1,16 @@
+{
+  "_about": "秘境 per map: from = the area it is reached from, dir = which side's high ground, spots = indices of that area's gathering spots (data/gather.json, same in every rank) that are in the 秘境; no spots = not matched yet; low = also reached in 下位 (otherwise 上位 and up only, so the 下位 tables in the source data are unreachable). Hand-written.",
+  "渓流": { "from": 3, "dir": "南西", "spots": [3, 4, 5], "low": true },
+  "古代林": { "from": 8, "dir": "西", "spots": [0, 1, 2] },
+  "遺群嶺": { "from": 7, "dir": "北", "spots": [2, 3, 4] },
+  "旧砂漠": { "from": 11, "dir": "北西", "spots": [3, 4, 5] },
+  "雪山": { "from": 9, "spots": [0, 1, 2, 3] },
+  "孤島": { "from": 7, "dir": "南西", "spots": [4, 5, 6] },
+  "沼地": { "from": 10, "spots": [0, 1, 2, 3] },
+  "火山": { "from": 11, "spots": [0, 1, 2, 3] },
+  "遺跡平原": { "from": 10, "dir": "北東", "spots": [0, 1, 2] },
+  "原生林": { "from": 5, "dir": "南東", "spots": [5, 6, 7] },
+  "氷海": { "from": 1, "dir": "北", "spots": [1, 2, 3] },
+  "地底火山": { "from": 9, "dir": "南西", "spots": [4, 5, 6] },
+  "砂漠": { "from": 11, "spots": [0, 1, 2, 3] }
+}

@@ -1,0 +1,294 @@
+:root {
+  /* parchment + leather + brass hunter's-notebook look */
+  --bg: #efe5cf;
+  --card: #fbf6ea;
+  --ink: #2b2118;
+  --muted: #6e5f4b;
+  --line: #d6c7a6;
+  --accent: #8a5a1c;
+  --accent-ink: #fff8ea;
+  --warn: #a8321e;
+  --good: #3f6b2a;
+  --chip: #e6d8b8;
+  --zebra: #f1e8d3;
+  --bar-bg: #3a2a1c;
+  --bar-ink: #f3e3bf;
+  --brass: #c49a45;
+  --fire: #c8400c; --water: #1b6fbf; --thunder: #a77f00; --ice: #1f9fb3; --dragon: #6a3fd1;
+  --tab-h: 58px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17120d; --card: #231b14; --ink: #ecdfc4; --muted: #a8977a; --line: #3d3023;
+    --accent: #d9a24a; --accent-ink: #1a120a; --warn: #ef7a5a; --good: #8fbf6a; --chip: #33281d; --zebra: #1e1711;
+    --bar-bg: #0f0b07; --bar-ink: #e6cf9c; --brass: #b08838;
+    --fire: #ff7a45; --water: #5aa9f0; --thunder: #e6c13a; --ice: #6fd8e6; --dragon: #a98bff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17120d; --card: #231b14; --ink: #ecdfc4; --muted: #a8977a; --line: #3d3023;
+  --accent: #d9a24a; --accent-ink: #1a120a; --warn: #ef7a5a; --good: #8fbf6a; --chip: #33281d; --zebra: #1e1711;
+  --bar-bg: #0f0b07; --bar-ink: #e6cf9c; --brass: #b08838;
+  --fire: #ff7a45; --water: #5aa9f0; --thunder: #e6c13a; --ice: #6fd8e6; --dragon: #a98bff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.55 system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom));
+}
+.top {
+  position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top));
+  background: var(--bar-bg); color: var(--bar-ink); border-bottom: 3px double var(--brass);
+}
+.top .icon-btn { color: var(--bar-ink); }
+.top h1 { font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; letter-spacing: .04em; font-size: 17px; margin: 0; flex: 1; order: 2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icon-btn { order: 1; border: 0; background: none; color: var(--ink); font-size: 20px; min-width: 40px; min-height: 40px; cursor: pointer; }
+#searchbtn, #helpbtn, #themebtn { order: 3; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+main { padding: 12px 16px 24px; max-width: 900px; margin: 0 auto; outline: none; }
+.tabs {
+  position: fixed; inset: auto 0 0 0; z-index: 5; display: grid; grid-template-columns: repeat(8, 1fr);
+  background: var(--bar-bg); border-top: 3px double var(--brass); padding-bottom: env(safe-area-inset-bottom);
+}
+.tabs a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  height: var(--tab-h); font-size: 10px; color: var(--bar-ink); opacity: .65; text-decoration: none; min-width: 0;
+}
+.tabs a span { font-size: 18px; line-height: 1; }
+.tabs a[aria-current="page"] { opacity: 1; color: var(--brass); font-weight: 700; box-shadow: inset 0 3px 0 var(--brass); }
+h2 { font-size: 16px; margin: 18px 0 8px; font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; border-bottom: 1px solid var(--brass); padding-bottom: 2px; }
+h3 { font-size: 15px; margin: 14px 0 6px; }
+.card { background: var(--card); border: 1px solid var(--line); box-shadow: inset 0 0 0 3px var(--card), inset 0 0 0 4px var(--line); border-radius: 6px; padding: 12px; margin: 10px 0; }
+.muted { color: var(--muted); font-size: 13px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.grow { flex: 1; min-width: 0; }
+button, .btn {
+  font: inherit; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 8px; padding: 8px 12px; min-height: 40px; cursor: pointer;
+}
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+button.danger { color: var(--warn); }
+button:disabled { opacity: .45; cursor: default; }
+input, select, textarea {
+  font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; min-height: 40px; max-width: 100%;
+}
+input[type="search"], input[type="text"] { width: 100%; }
+input[type="checkbox"] { width: 20px; height: 20px; min-height: 0; accent-color: var(--accent); }
+label.check { display: flex; align-items: center; gap: 8px; min-height: 40px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--chip); border-radius: 999px; padding: 4px 10px; font-size: 13px; border: 0; min-height: 32px; }
+.chip.on { background: var(--accent); color: var(--accent-ink); }
+.pickrow { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; text-align: left; margin: 6px 0; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--chip); background: transparent; color: var(--ink); min-height: 44px; }
+.pickrow.on { border-color: var(--accent); }
+.mini { font-size: 12px; padding: 2px 8px; min-height: 30px; margin-left: 4px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { border-bottom: 1px solid var(--line); }
+.list a, .list .item { display: flex; gap: 8px; align-items: center; padding: 10px 2px; color: inherit; text-decoration: none; min-height: 44px; }
+.ruby { font-size: 11px; color: var(--muted); display: block; line-height: 1.2; }
+.list > li:nth-child(even) { background: var(--zebra); }
+/* own scroll box so the header row and first column can stay visible */
+.table-wrap { overflow: auto; max-height: 75vh; -webkit-overflow-scrolling: touch; }
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13px; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 4px; text-align: center; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--muted); font-weight: 600; }
+tr:nth-child(even) > td { background: var(--zebra); }
+.table-wrap th { position: sticky; top: 0; z-index: 2; background: var(--bg); }
+.table-wrap td:first-child { position: sticky; left: 0; z-index: 1; background: var(--bg); }
+.table-wrap tr:nth-child(even) > td:first-child { background: var(--zebra); }
+.table-wrap th:first-child { left: 0; z-index: 3; }
+.hi { font-weight: 800; color: var(--warn); }
+.el-火 { color: var(--fire); } .el-水 { color: var(--water); } .el-雷 { color: var(--thunder); } .el-氷 { color: var(--ice); } .el-龍 { color: var(--dragon); }
+details > summary { cursor: pointer; padding: 8px 0; font-weight: 600; min-height: 40px; }
+.pill { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 6px; background: var(--chip); color: var(--muted); }
+.big { font-size: 22px; font-weight: 800; }
+.loading { color: var(--muted); }
+#toast {
+  position: fixed; left: 16px; right: 16px; bottom: calc(var(--tab-h) + 12px + env(safe-area-inset-bottom)); z-index: 9;
+  background: var(--ink); color: var(--bg); border-radius: 10px; padding: 10px 14px; display: flex; gap: 12px; align-items: center;
+  max-width: 560px; margin: 0 auto;
+}
+#toast button { background: transparent; color: var(--bg); border-color: var(--bg); min-height: 34px; padding: 4px 10px; }
+.result .skills { font-size: 13px; }
+.result .pieces td:first-child { color: var(--muted); width: 2.5em; }
+.bar { height: 8px; border-radius: 4px; background: var(--chip); overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+.mapsvg { width: 100%; max-width: 420px; display: block; margin: 0 auto; }
+.mapsvg circle { fill: var(--card); stroke: var(--accent); stroke-width: 2; }
+.mapsvg line { stroke: var(--muted); stroke-width: 2; }
+.mapsvg text { fill: var(--ink); font-size: 6.5px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.mapsvg .sel circle { fill: var(--accent); }
+.mapsvg .sel text { fill: var(--accent-ink); }
+@media (prefers-reduced-motion: no-preference) { .chip, button { transition: background-color .15s; } }
+@media (min-width: 700px) { .tabs a { font-size: 12px; } }
+#toast[hidden] { display: none; }
+a { color: var(--accent); }
+a.chip { text-decoration: none; color: var(--ink); }
+.btn { display: inline-flex; align-items: center; text-decoration: none; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+/* bring-item icons with ○ / × stamped over them */
+.preps { display: flex; flex-wrap: wrap; gap: 8px; }
+.prep { display: flex; flex-direction: column; align-items: center; width: 64px; font-size: 11px; text-align: center; line-height: 1.25; }
+.prep .sym { position: relative; display: grid; place-items: center; width: 48px; height: 48px; font-size: 26px; border-radius: 50%; background: var(--chip); border: 2px solid var(--brass); }
+.prep .mk { position: absolute; inset: 0; display: grid; place-items: center; font-size: 44px; line-height: 1; font-weight: 900; }
+.prep .mk.ok { color: var(--good); }
+.prep .mk.ng { color: var(--warn); }
+.prep .q { position: absolute; right: -4px; top: -4px; font-style: normal; font-size: 12px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; background: var(--card); border: 1px solid var(--line); color: var(--muted); display: grid; place-items: center; }
+.prep small { color: var(--muted); }
+/* weapon upgrade tree: nested lists with guide lines */
+.wtree, .wtree ul { list-style: none; margin: 0; padding-left: 14px; }
+.wtree { padding-left: 0; }
+.wtree li { position: relative; padding: 6px 0 2px 12px; border-left: 2px solid var(--line); font-size: 14px; }
+.wtree li::before { content: ""; position: absolute; left: 0; top: 16px; width: 10px; border-top: 2px solid var(--line); }
+.wtree li.can { border-left-color: var(--brass); }
+.wtree li.can::before { border-top-color: var(--brass); }
+.wtree li.can > a { font-weight: 700; }
+.wtree li.here > a { color: var(--warn); }
+.prep .mk.cond { color: var(--thunder); }
+/* quest map: start / move / rest areas */
+.hab g circle { fill: var(--card); stroke: var(--line); }
+.hab g.move circle { stroke: var(--brass); stroke-width: 2.5; }
+.hab g.start circle { fill: var(--warn); stroke: var(--warn); }
+.hab g.start text { fill: #fff; }
+.hab .zz { font-size: 5px; fill: var(--accent); font-weight: 900; }
+.lg { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; border: 2px solid var(--brass); }
+.lg.start { background: var(--warn); border-color: var(--warn); }
+.steps { margin: 6px 0; padding-left: 1.6em; }
+.steps li { margin: 6px 0; }
+.ta { margin-top: 18px; font-size: 13px; }
+.ta .chip { font-size: 12px; min-height: 28px; padding: 2px 8px; }
+/* sim: search button and fixed pieces stay in view while scrolling the long form */
+.simbar { position: sticky; top: var(--top-h, 64px); z-index: 4; background: var(--bg); margin: 0 -16px; padding: 6px 16px; border-bottom: 1px solid var(--line); }
+/* monster name in two (or more) weakness colours, one colour per piece of the name */
+.multi-el { font-weight: 700; }
+.detail { font-size: 12px; color: var(--ink); background: var(--chip); border-radius: 6px; padding: 2px 6px; margin-top: 2px; display: inline-block; }
+/* ハンター / ニャンター show filter: toggle switches, unlike the action buttons */
+.filterbar { display: flex; align-items: center; gap: 8px; margin: 4px 0 10px; padding: 6px 8px; border: 1px dashed var(--brass); border-radius: 8px; }
+.toggle { border-radius: 999px; padding: 6px 14px; min-height: 40px; background: var(--card); color: var(--muted); border: 2px solid var(--line); }
+.toggle[aria-pressed="true"] { background: var(--chip); color: var(--ink); border-color: var(--brass); font-weight: 700; }
+/* compact simulator result: names in one wrapped paragraph, small skill chips */
+.result.compact { padding: 8px 10px; margin: 6px 0; }
+.result.compact .row { gap: 6px; }
+.result.compact .mini { min-height: 28px; }
+.pcs { font-size: 12.5px; line-height: 1.45; }
+.pcs span { margin-right: 8px; white-space: nowrap; }
+.pcs i { font-style: normal; color: var(--muted); margin-right: 2px; }
+.pcs small { color: var(--muted); margin-left: 1px; }
+.result.compact .skills { gap: 3px; margin-top: 4px; }
+.result.compact .skills .chip { font-size: 11px; min-height: 22px; padding: 1px 7px; }
+.result.compact details > summary { min-height: 28px; padding: 4px 0 0; font-size: 12px; font-weight: 400; color: var(--muted); }
+.ask { border: 2px solid var(--warn); }
+/* rarity badge in the game's colours (rare 1-10, X); other values stay plain */
+.rare { display: inline-block; font-size: 11px; line-height: 1.5; padding: 0 6px; border-radius: 6px; border: 1px solid var(--line); background: var(--chip); color: var(--ink); white-space: nowrap; font-weight: 700; }
+.rare[data-r="1"] { background: #f2f2f2; color: #222; border-color: #bbb; }
+.rare[data-r="2"] { background: #c8b4ea; color: #222; border-color: #c8b4ea; }
+.rare[data-r="3"] { background: #f0e27a; color: #222; border-color: #f0e27a; }
+.rare[data-r="4"] { background: #f5a3c7; color: #222; border-color: #f5a3c7; }
+.rare[data-r="5"] { background: #5fbf5f; color: #222; border-color: #5fbf5f; }
+.rare[data-r="6"] { background: #3f73d9; color: #fff; border-color: #3f73d9; }
+.rare[data-r="7"] { background: #d94040; color: #fff; border-color: #d94040; }
+.rare[data-r="8"] { background: #23a99a; color: #fff; border-color: #23a99a; }
+.rare[data-r="9"] { background: #f08a2c; color: #222; border-color: #f08a2c; }
+.rare[data-r="10"] { background: #b8327f; color: #fff; border-color: #b8327f; }
+.rare[data-r="X"] { background: #4b1f7a; color: #fff; border-color: #9a7cc4; }
+/* map: one-way edges are a thick dashed arrow in the warning colour; fish / drink marks beside the areas */
+.mapsvg path.oneway { fill: none; stroke: var(--warn); stroke-width: 2.4; stroke-dasharray: 4 2; }
+.mapsvg .arrowhead { fill: var(--warn); }
+.mapsvg text.mark { font-size: 5.5px; font-weight: 400; }
+.lg-ow { color: var(--warn); font-weight: 700; }
+/* home shortcuts on the 進行チェック top page */
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 4px 0 10px; }
+.tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 64px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); text-decoration: none; font-size: 12px; font-weight: 700; }
+.tile span { font-size: 22px; line-height: 1; color: var(--accent); }
+/* sim result table: one grid row per piece; resistances blue (+) / red (-) */
+.resbar { justify-content: space-between; margin: 6px 0; }
+.rgrid { display: grid; grid-template-columns: 2.1em minmax(0, 1fr) 2.4em 2.6em repeat(5, 1.9em); gap: 2px; align-items: center; font-size: 12px; text-align: center; }
+.rgrid > span:nth-child(2) { text-align: left; }
+.rhead { color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--line); padding: 2px 0; }
+.rrow > summary { list-style: none; cursor: pointer; padding: 6px 0; border-bottom: 1px solid var(--line); min-height: 36px; }
+.rrow > summary::-webkit-details-marker { display: none; }
+.rrow[open] > summary { background: var(--chip); }
+.rname { overflow-wrap: anywhere; }
+.rdet { padding: 6px 4px 8px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.rtotal { font-weight: 700; padding: 4px 0; }
+.rplus { color: var(--water); font-weight: 700; } .rminus { color: var(--warn); font-weight: 700; } .rzero { color: var(--muted); }
+.sl { font-size: 10px; letter-spacing: -1px; } .sl2 { color: var(--accent); } .sl3 { color: var(--good); font-weight: 700; }
+.rres { margin: 2px 0; }
+/* 進行チェック: the quest detail link looks like a button, apart from the checkbox row */
+.btn.qdetail { flex: none; min-height: 36px; padding: 4px 10px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; white-space: nowrap; }
+/* quest unlock chain: one fold per earlier tab */
+.step { border-top: 1px solid var(--line); padding: 2px 0; }
+.pill.on { background: var(--accent); color: var(--accent-ink); }
+/* sim 一覧 view: two compact lines per result */
+.rltable { border-collapse: collapse; font-size: 12px; }
+.rltable th { font-size: 11px; color: var(--muted); text-align: left; padding: 2px 6px; }
+.rltable td { padding: 3px 6px; white-space: nowrap; text-align: left; border: 0; }
+.rltable tbody.rl { border-top: 1px solid var(--line); cursor: pointer; }
+.rltable tbody.rl:nth-of-type(even) { background: var(--zebra); }
+.rltable .rln { font-weight: 700; color: var(--muted); vertical-align: middle; }
+.rltable .rlnum td { padding-top: 0; }
+.rltable .rlnum span + span { margin-left: 2px; }
+.rltable .rldet td { white-space: normal; padding: 0; }
+.rltable .rldet .card { margin: 4px 0; }
+.rltable .rlnum td:first-child, .rltable .rldet td:first-child { position: static; background: none; }
+.rltable .rldet td > div { position: sticky; left: 0; width: min(868px, calc(100vw - 32px)); }
+/* farming scope switch above material tips */
+.farmbar { margin: 4px 0 8px; gap: 6px; }
+/* 効果重複 memo: one line per group */
+.grouplist li { margin: 6px 0; }
+/* 効果重複の計算機 */
+.calcrow { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 6px 0; flex-wrap: wrap; }
+.calcrow select { max-width: 100%; }
+#cout { position: sticky; top: var(--top-h, 64px); z-index: 3; }
+/* a link inside a sentence in a list row stays inline */
+.list a.inl { display: inline; padding: 0; min-height: 0; border: 0; }
+/* capture-only quest mark */
+.pill.cap { background: var(--good); color: #fff; }
+/* arena TA ranking rows */
+.tarow { border-top: 1px solid var(--line); }
+.tarow > summary, .tarow.none { display: flex; align-items: center; gap: 8px; padding: 8px 0; min-height: 40px; list-style: none; cursor: pointer; }
+.tarow > summary::-webkit-details-marker { display: none; }
+.tarow .tarank { min-width: 2.6em; color: var(--muted); font-weight: 700; }
+.tarow[open] > summary { background: var(--chip); }
+.tarow > div { padding: 0 0 8px 2.6em; }
+/* map gathering spots; charms in gold so they stand out among many items */
+.spots { margin-top: 6px; }
+.spot { border-top: 1px solid var(--line); padding: 6px 0; }
+.chip.charm { background: #f2d36b; color: #3a2a00; font-weight: 700; border: 1px solid #c9a227; }
+
+/* friend-view / backup reminder bar under the header */
+.topbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 10px; background: var(--chip); border-bottom: 1px solid var(--line); font-size: 13px; }
+.topbar .grow { flex: 1 1 12em; }
+/* tour card above the tab bar; quest unlock path */
+.tour { position: fixed; left: 8px; right: 8px; bottom: calc(64px + env(safe-area-inset-bottom)); z-index: 6; background: var(--card); border: 2px solid var(--brass); border-radius: 8px; padding: 10px 12px; box-shadow: 0 4px 16px rgba(0,0,0,.3); max-width: 560px; margin: 0 auto; }
+.tour p { margin: 6px 0; font-size: 14px; }
+.qpath { padding-left: 1.6em; margin: 6px 0; }
+.qpath li { margin: 4px 0; }
+/* gathering spot that picks one of several tables: one framed box per table */
+.gtable { border: 1px solid var(--line); border-left: 4px solid var(--brass); border-radius: 6px; padding: 4px 8px; margin: 6px 0; }
+.gthead { font-size: 13px; margin-bottom: 2px; }
+/* monster page quest table: client on its own small line, smaller readings, so the right columns fit */
+.monq .qclient { font-size: 11px; line-height: 1.2; color: var(--muted); }
+.monq .ruby { font-size: 9px; line-height: 1.1; }
+/* crown marks on hunting records */
+.crown { display: inline-block; font-size: 10px; font-weight: 800; line-height: 1; padding: 1px 3px; border-radius: 3px; margin-right: 2px; color: #222; }
+.crown.gold { background: #e7c24a; } .crown.silver { background: #c9ced6; }
+/* back-to-top button above the tab bar */
+.totop { position: fixed; right: 12px; bottom: calc(70px + env(safe-area-inset-bottom)); z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--brass); background: var(--card); color: var(--ink); font-size: 18px; box-shadow: 0 2px 8px rgba(0,0,0,.3); cursor: pointer; }
+/* recommended pouch: 8 cells per page, 4 across on a phone */
+.ppage { margin: 6px 0 10px; }
+.pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.pcell { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 4px; font-size: 12px; line-height: 1.25; min-height: 52px; display: flex; flex-direction: column; }
+.pcell b { font-size: 12px; } .pcell span { color: var(--accent); font-weight: 700; } .pcell small { color: var(--muted); font-size: 10px; }
+.pill.rnd { background: #7a5bd1; color: #fff; }
+.pill.tier-S { background: #c9a227; color: #fff; }
+.pill.tier-A { background: var(--good); color: #fff; }
+/* 背景を消す: transparent page for overlaying (cards keep their own background) */
+html.nobg, html.nobg body { background: transparent; }
+html.nobg .table-wrap th, html.nobg .table-wrap td:first-child { background: var(--card); }

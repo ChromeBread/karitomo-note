@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3a2a1c">
+<title>ドパ☆ガキ狩友ノート</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="top">
+  <h1 id="title">ドパ☆ガキ狩友ノート</h1>
+  <button id="back" class="icon-btn" aria-label="戻る" hidden>←</button>
+  <a href="#find" class="icon-btn" id="searchbtn" aria-label="さがす" title="さがす">⌕</a>
+  <a href="#help" class="icon-btn" id="helpbtn" aria-label="使い方" title="使い方">？</a>
+  <button id="themebtn" class="icon-btn" aria-label="ダークモードにする" title="画面の色">☾</button>
+</header>
+<div id="bar" class="topbar" role="status" hidden></div>
+<main id="view" tabindex="-1"><p class="loading">データを読み込んでいます…</p></main>
+<nav class="tabs" id="tabs" aria-label="メニュー">
+  <a href="#progress" data-tab="progress"><span aria-hidden="true">✓</span>進行</a>
+  <a href="#sim" data-tab="sim"><span aria-hidden="true">⚙</span>シミュ</a>
+  <a href="#charms" data-tab="charms"><span aria-hidden="true">◇</span>護石</a>
+  <a href="#find" data-tab="find"><span aria-hidden="true">⇄</span>逆引き</a>
+  <a href="#mons" data-tab="mons"><span aria-hidden="true">◆</span>モンスター</a>
+  <a href="#maps" data-tab="maps"><span aria-hidden="true">▦</span>マップ</a>
+  <a href="#rank" data-tab="rank"><span aria-hidden="true">★</span>武器</a>
+  <a href="#settings" data-tab="settings"><span aria-hidden="true">≡</span>設定</a>
+</nav>
+<button id="totop" class="totop" aria-label="ページの上へ" hidden>▲</button>
+<div id="tour" class="tour" role="dialog" aria-label="使い方ツアー" hidden></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+// Safety net outside the app module: if the app fails to start (for example old and new files
+// mixed in the browser cache), show why and offer a clean reload instead of an endless "loading".
+(function () {
+  var shown = false;
+  function rescue(why) {
+    var v = document.getElementById("view");
+    if (shown || !v || !v.querySelector(".loading")) return;
+    shown = true;
+    v.innerHTML = '<div class="card"><p><b>読み込みが終わりませんでした。</b></p><p class="muted">新しい版と古い版のファイルが混ざったか、通信が切れた可能性があります。保存したデータは消えません。</p>' +
+      '<p><button class="primary" id="rescue">最新の版を読み込み直す</button></p><p class="muted" id="rescuewhy"></p></div>';
+    document.getElementById("rescuewhy").textContent = why ? "理由: " + why : "";
+    document.getElementById("rescue").onclick = function () {
+      var files = ["index.html", "css/app.css", "js/app.js", "js/sim.js", "js/sim-worker.js", "js/unlock.js", "js/kana.js", "js/rank.js", "js/charms.js", "js/share.js", "js/spec.js", "js/plan.js"];
+      var clean = (window.caches ? caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }) : Promise.resolve())
+        .then(function () { return navigator.serviceWorker ? navigator.serviceWorker.getRegistrations() : []; })
+        .then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); })
+        .then(function () { return Promise.all(files.map(function (f) { return fetch(f, { cache: "reload" }).catch(function () {}); })); });
+      clean.catch(function () {}).then(function () { location.reload(); });
+    };
+  }
+  window.__rescue = rescue; // also called by the module <script> tag's onerror (a file of the app failed to load)
+  window.addEventListener("error", function (e) { rescue(e.message); });
+  window.addEventListener("unhandledrejection", function (e) { rescue(String(e.reason && e.reason.message || e.reason)); });
+  setTimeout(function () { rescue("15秒たっても始まりませんでした"); }, 15000);
+})();
+</script>
+<script type="module" src="js/app.js?v=1.0.0" onerror="window.__rescue && window.__rescue('アプリのファイルを読み込めませんでした')"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1200px; height: 560px; background: #efe5cf; font-family: "Segoe UI", "Yu Gothic UI", sans-serif; color: #2b2118; padding: 28px 32px; }
+  h1 { font-size: 30px; letter-spacing: .04em; }
+  h1 small { font-size: 17px; color: #7a6a52; margin-left: 12px; font-weight: normal; }
+  .wrap { display: flex; gap: 28px; margin-top: 20px; }
+  .steps { width: 400px; display: flex; flex-direction: column; gap: 14px; }
+  .step { background: #faf4e6; border: 2px solid #d8c7a4; border-radius: 14px; padding: 14px 16px; }
+  .step b.n { display: inline-flex; width: 30px; height: 30px; border-radius: 50%; background: #8a5a1f; color: #fff; align-items: center; justify-content: center; font-size: 18px; margin-right: 8px; }
+  .step .t { font-size: 19px; font-weight: bold; }
+  .step p { font-size: 15px; margin-top: 6px; line-height: 1.5; }
+  code { background: #3a2b1d; color: #f5e6c6; border-radius: 6px; padding: 1px 7px; font-family: Consolas, monospace; font-size: 15px; }
+  .obs { flex: 1; background: #2a2f36; border-radius: 14px; padding: 12px; color: #e8e8e8; position: relative; }
+  .obs .bar { font-size: 14px; color: #aab; margin-bottom: 8px; }
+  .row { display: flex; gap: 12px; }
+  .preview { width: 470px; height: 264px; background: #111; border-radius: 6px; position: relative; overflow: hidden; border: 2px solid #555; }
+  .box { position: absolute; border-radius: 5px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 14px; }
+  .game { left: 6px; top: 6px; width: 330px; height: 186px; background: #3f6d4e; }
+  .me { left: 6px; top: 198px; width: 160px; height: 60px; background: #5d4a7a; }
+  .chat { left: 172px; top: 198px; width: 164px; height: 60px; background: #48607e; }
+  .app { right: 6px; top: 6px; width: 120px; height: 252px; background: #efe5cf; color: #2b2118; border: 3px solid #e3a33a; flex-direction: column; font-weight: bold; }
+  .app small { font-weight: normal; font-size: 12px; margin-top: 4px; }
+  .dock { width: 170px; height: 264px; background: #efe5cf; color: #2b2118; border-radius: 6px; border: 3px solid #e3a33a; padding: 8px; font-size: 13px; }
+  .dock .hd { background: #3a2b1d; color: #f5e6c6; border-radius: 4px; padding: 3px 6px; font-weight: bold; }
+  .dock .item { background: #faf4e6; border: 1px solid #d8c7a4; border-radius: 4px; margin-top: 6px; padding: 4px 6px; }
+  .dock .ln { display: inline-block; width: 90px; height: 8px; border-radius: 4px; background: #cdbb95; vertical-align: middle; }
+  .dock .hand { font-size: 30px; text-align: center; margin-top: 8px; }
+  .lab { font-size: 15px; margin-top: 8px; display: flex; gap: 12px; }
+  .lab div { flex: 1; text-align: center; }
+  .lab .src { width: 470px; flex: none; }
+  .lab .dk { width: 170px; flex: none; }
+  .tag { display: inline-block; background: #e3a33a; color: #2b2118; border-radius: 6px; padding: 2px 8px; font-weight: bold; font-size: 14px; }
+  .flow { margin-top: 16px; background: #3a414a; border-radius: 10px; padding: 12px 14px; font-size: 15px; line-height: 1.6; }
+  .flow b { color: #ffd38a; }
+  svg.arrow { position: absolute; left: 470px; top: 70px; overflow: visible; }
+</style></head><body>
+<h1>Use it on stream (OBS) <small>one page to touch, one page to show</small></h1>
+<div class="wrap">
+  <div class="steps">
+    <div class="step"><b class="n">1</b><span class="t">Touch: a custom dock</span>
+      <p>In OBS, open <b>Docks → Custom Browser Docks</b><br>and add the app's address.<br>Tap, scroll and type in it as usual.</p></div>
+    <div class="step"><b class="n">2</b><span class="t">Show: a browser source</span>
+      <p>Add a <b>Browser</b> source to your scene with<br>the same address plus <code>?obs</code> at the end.<br>"Local file" off, a tall size (e.g. 540×960).</p></div>
+    <div class="step"><b class="n">3</b><span class="t">Just use the dock</span>
+      <p>The shown page follows the page you open,<br>your scrolling and simulator searches.<br>No WebSocket setup needed.</p></div>
+  </div>
+  <div class="obs">
+    <div class="bar">OBS</div>
+    <div class="row">
+      <div class="preview">
+        <div class="box game">Game</div>
+        <div class="box me">You (camera)</div>
+        <div class="box chat">Chat</div>
+        <div class="box app">MHGU<br>Game Guide<small>browser source<br>(?obs)</small><small>show only</small></div>
+      </div>
+      <div class="dock"><div class="hd">MHGU Game Guide (dock)</div>
+        <div class="item">✓ <i class="ln"></i></div><div class="item">⚙ <i class="ln"></i></div><div class="item">⇄ <i class="ln"></i></div>
+        <div class="hand">👆</div><div style="text-align:center">touch here</div></div>
+    </div>
+    <div class="lab"><div class="src">On stream (preview)</div><div class="dk">Not on stream</div></div>
+    <div class="flow">
+      Open a page, scroll or search in the <span class="tag">dock</span><br>
+      → the <span class="tag">shown page</span> <b>follows automatically</b> to the same page and position.<br>
+      Text size and background on/off can be set <b>for the shown page only</b> in Settings → Display.
+    </div>
+  </div>
+</div>
+</body></html>
